@@ -3,6 +3,7 @@ import OperandButton from "./OperandButton";
 import OperatorButton from "./OperatorButton";
 import {withStyles} from '@material-ui/core/styles';
 import {List, ListItem, ListItemText, TextField} from "@material-ui/core";
+import Exercises from '../pages/exercises/containers/Exercises'
 
 const styles = () => (
     {
@@ -18,6 +19,9 @@ const styles = () => (
         Header: {
             fontFamily: 'Trebuchet MS',
             fontSize: '30px'
+        },
+        ButtonReceive: {
+            marginTop: '5px'
         }
     }
 );
@@ -85,18 +89,22 @@ class Calculator extends React.Component {
         if (operator === '=') {
             const result = this.parseInput()
 
-            if (result) {
-                let num1 = result[1]
-                let num2 = result[3]
-                let operator = result[2]
+            this.setValues(result)
+        }
+    }
 
-                this.calculate(num1, num2, operator)
-            }
+    setValues(result){
+        if (result) {
+            let num1 = result[1]
+            let num2 = result[3]
+            let operator = result[2]
+
+            this.calculate(num1, num2, operator)
         }
     }
 
     parseInput() {
-        const regExp = /(\d*)(.)(\d*)/;
+        const regExp = /(\d+)\s*(.)\s*(\d+)/;
         let input = this.state.input;
         let result = input.toString().match(regExp)
         if (result[3] !== '') {
@@ -128,6 +136,15 @@ class Calculator extends React.Component {
         this.saveToHistory(num1, num2, operator, result)
     }
 
+    calculateExercises(exercises){
+        exercises.forEach((exercise) => {
+            exercise.append('=')
+            const result = this.parseInput()
+            this.setValues(result)
+            this.calculate(result[1], result[3], result[2])
+        })
+    }
+
     saveToHistory(num1, num2, operator, result) {
         let mathExercise = `${num1}${operator}${num2}=`
         this.exerciseHistory.push(mathExercise)
@@ -139,7 +156,6 @@ class Calculator extends React.Component {
         const {
             classes
         } = this.props;
-
         return (
             <div className="Calculator">
                 <div className={classes.Buttons}>
@@ -178,6 +194,9 @@ class Calculator extends React.Component {
                         size='medium'
                     />
                 </div>
+                <div>
+                    <Exercises/>
+                </div>
                 <div className="History">
                     <List
                         sx={{
@@ -198,7 +217,6 @@ class Calculator extends React.Component {
                                 <ListItem key={`${item}`}>
                                     <ListItemText primary={`${item}${this.resultHistory[index]}`}/>
                                 </ListItem>
-
                             ))}
                         </ul>
                     </List>
@@ -207,5 +225,4 @@ class Calculator extends React.Component {
         );
     }
 }
-
 export default withStyles(styles)(Calculator);
