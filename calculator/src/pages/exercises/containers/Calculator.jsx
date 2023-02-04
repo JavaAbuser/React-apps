@@ -7,7 +7,6 @@ import actionExercises from "../actions/exercises";
 import {connect} from "react-redux";
 import {parseInput} from '../../../utils/math'
 import {setValuesAndCalculate} from "../../../utils/math";
-import {calculateExercises} from '../../../utils/math'
 
 const styles = () => (
     {
