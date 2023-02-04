@@ -111,60 +111,6 @@ class Calculator extends React.Component {
             })
         })
     }
-    // setValuesAndCalculate(result){
-    //     if (result) {
-    //         let num1 = result[1]
-    //         let num2 = result[3]
-    //         let operator = result[2]
-    //
-    //         this.calculate(num1, num2, operator)
-    //
-    //         this.setState({
-    //             input: 0
-    //         })
-    //     }
-    // }
-
-    // parseInput(input) {
-    //     const regExp = /(\d+)\s*(.)\s*(\d+)/;
-    //     // let input = this.state.input;
-    //     let result = input.toString().match(regExp)
-    //     if (result[3] !== '') {
-    //         return result
-    //     }
-    // }
-
-    // calculate(num1, num2, operator) {
-    //     num1 = parseInt(num1);
-    //     num2 = parseInt(num2);
-    //
-    //     let result
-    //
-    //     if (operator === '+') {
-    //         result = num1 + num2
-    //     } else if (operator === '-') {
-    //         result = num1 - num2
-    //     } else if (operator === '*') {
-    //         result = num1 * num2
-    //     } else if (operator === '/') {
-    //         result = num1 / num2
-    //     }
-    //
-    //     return result;
-    //
-    //     // this.setState({
-    //     //     input: result.toString()
-    //     // })
-    //
-    //     // this.saveToHistory(num1, num2, operator, result)
-    // }
-
-    // calculateExercises(exercises){
-    //     exercises.forEach((exercise) => {
-    //         let result = this.parseInput(exercise);
-    //         this.setValuesAndCalculate(result)
-    //         })
-    // }
 
     saveToHistory(num1, num2, operator, result) {
         let mathExercise = `${num1}${operator}${num2}=`
@@ -260,5 +206,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch
 })
 
-// export default withStyles(styles)(Calculator);
 export default connect(mapReduxStateToProps, mapDispatchToProps)(Calculator);
