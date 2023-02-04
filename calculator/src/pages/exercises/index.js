@@ -1,1 +1,1 @@
-export { default } from './containers/Exercises'
+export { default } from './containers/Calculator'
