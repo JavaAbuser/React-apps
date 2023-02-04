@@ -1,6 +1,6 @@
 import React from 'react';
-import Calculator from "./components/Calculator";
-import { createStore, combineReducers } from 'redux';
+import Calculator from "./pages/exercises/containers/Calculator";
+import { createStore} from 'redux';
 import { Provider } from 'react-redux';
 import exercisesReducer from './pages/exercises/reduces/exercises';
 
