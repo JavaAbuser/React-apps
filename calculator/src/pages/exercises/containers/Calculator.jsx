@@ -7,27 +7,7 @@ import actionExercises from "../actions/exercises";
 import {connect} from "react-redux";
 import {parseInput} from '../../../utils/math'
 import {setValuesAndCalculate} from "../../../utils/math";
-
-const styles = () => (
-    {
-        Buttons: {
-            backgroundColor: '#94CDFF',
-            width: '15%',
-            height: '100%',
-            borderRadius: '15px 15px 15px 15px',
-            textAlign: 'center',
-            verticalAlign: 'center',
-            padding: '1px 20px 20px 20px'
-        },
-        Header: {
-            fontFamily: 'Trebuchet MS',
-            fontSize: '30px'
-        },
-        ButtonReceive: {
-            marginTop: '5px'
-        }
-    }
-);
+import {Buttons, Header, ButtonReceive} from "../../../styles/CalculatorStyles";
 
 class Calculator extends React.Component {
     operators = ['+', '-', '*', "/"]
@@ -37,7 +17,8 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            input: 0
+            input: 0,
+            count: 0
         };
     }
 
@@ -118,12 +99,19 @@ class Calculator extends React.Component {
         this.resultHistory.push(result)
     }
 
+    handleChange = (event) => {
+        console.log(event.target.value)
+        this.setState({
+            count: event.target.value
+        })
+    }
+
     render() {
         console.log(this.props)
         return (
-            <div className="Calculator">
-                <div>
-                    <h1>Calculator</h1>
+            <div>
+                <div style={Buttons}>
+                    <h1 style={Header}>Calculator</h1>
                     <OperandButton operandValue={0} onClick={() => this.enterNumber(0)}/>
                     <OperandButton operandValue={1} onClick={() => this.enterNumber(1)}/>
                     <OperandButton operandValue={2} onClick={() => this.enterNumber(2)}/>
@@ -160,8 +148,8 @@ class Calculator extends React.Component {
                 </div>
                 <div>
                     <div>
-                        <Button variant="contained" size={"large"} color={"primary"} onClick={() => actionExercises({
-                            exercisesCount: 2,
+                        <Button style={ButtonReceive} variant="contained" size={"large"} color={"primary"} onClick={() => actionExercises({
+                            exercisesCount: this.state.count,
                         })(this.props.dispatch)
                             .then((data) => {
                                 this.calculateExercises(data.exercises)
@@ -169,6 +157,16 @@ class Calculator extends React.Component {
                             Get exercises & calculate them
                         </Button>
                     </div>
+                    <TextField style={{
+                        'marginLeft': '40px',
+                        'marginTop': '5px'
+                    }}
+                               id="outlined-multiline-flexible"
+                               size='medium'
+                               label={'count'}
+                               color='secondary'
+                               onChange={this.handleChange}
+                    />
                 </div>
                 <div className="History">
                     <List
@@ -181,13 +179,11 @@ class Calculator extends React.Component {
                             '& ul': {padding: 0},
                         }}
                     >
-                        <h2 style={{
-                            fontFamily: 'Comic Sans MS',
-                            marginLeft: '110px'
-                        }}>History</h2>
+                        <h2 style={{...Header,
+                        marginLeft: '110px'}}>History</h2>
                         <ul>
                             {this.exerciseHistory.map((item, index) => (
-                                <ListItem key={`${item}`}>
+                                <ListItem key={`${index}`}>
                                     <ListItemText primary={`${item}${this.resultHistory[index]}`}/>
                                 </ListItem>
                             ))}
