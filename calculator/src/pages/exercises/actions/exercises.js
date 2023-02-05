@@ -4,19 +4,24 @@ const requestExercises = () => ({ type: 'REQUEST_EXERCISES' });
 
 const errorReceiveExercises = () => ({ type: 'ERROR_RECEIVE_EXERCISES' });
 
-const getExercises = (exercisesCount) => new Promise((onSuccess) => {
-    const exercises = ['2 + 2', '7 / 0', '14 - 5']
-    setTimeout(
-        () => onSuccess(exercises),
-        2000
-    );
-});
+async function getExercises (exercisesCount){
+    let response = await fetch(`http://localhost:8080/math/examples?count=${exercisesCount}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    let content = await response.json()
+    console.log(content)
+    return content
+}
 
 const fetchExercises = ({ exercisesCount }) => (dispatch) => {
     dispatch(requestExercises())
 
     return getExercises(exercisesCount)
-        .then(exercise => dispatch(receiveExercises(exercise)))
+        .then(exercises => dispatch(receiveExercises(exercises)))
         .catch(() => dispatch(errorReceiveExercises()))
 };
 
