@@ -1,3 +1,4 @@
+const error = 'DIVIDING_BY_ZERO'
 function calculate(num1, num2, operator) {
     num1 = parseInt(num1);
     num2 = parseInt(num2);
@@ -11,9 +12,12 @@ function calculate(num1, num2, operator) {
     } else if (operator === '*') {
         result = num1 * num2
     } else if (operator === '/') {
-        result = num1 / num2
+        if (num2 === 0) {
+            result = error
+        } else {
+            result = num1 / num2
+        }
     }
-
     return result;
 }
 
