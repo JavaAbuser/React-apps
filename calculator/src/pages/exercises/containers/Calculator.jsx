@@ -61,7 +61,15 @@ class Calculator extends React.Component {
         let prevInput = this.state.input;
         const lastSymbol = prevInput.toString().slice(-1);
 
-        if (this.operators.includes(lastSymbol)) {
+        if(this.state.input === 0){
+            if(operator === '-'){
+                this.setState({
+                    input: operator
+                })
+            }
+        }
+
+        else if (this.operators.includes(lastSymbol)) {
             this.setState({
                 input: this.state.input.toString().replace(lastSymbol, operator)
             })
@@ -72,6 +80,7 @@ class Calculator extends React.Component {
         }
         if (operator === '=') {
             let parsedInput = parseInput(prevInput)
+
             let result = setValuesAndCalculate(parsedInput)
             this.saveToHistory(parsedInput[1], parsedInput[3], parsedInput[2], result)
 
