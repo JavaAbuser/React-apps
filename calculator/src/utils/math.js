@@ -1,4 +1,5 @@
-const error = 'DIVIDING_BY_ZERO'
+const error = 'Error division by zero'
+
 function calculate(num1, num2, operator) {
     num1 = parseInt(num1);
     num2 = parseInt(num2);
@@ -23,7 +24,6 @@ function calculate(num1, num2, operator) {
 
 export function setValuesAndCalculate(result){
     if (result) {
-        console.log(result)
         let num1 = result[1]
         let num2 = result[3]
         let operator = result[2]
