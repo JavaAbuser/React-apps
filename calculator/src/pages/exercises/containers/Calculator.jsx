@@ -103,9 +103,9 @@ class Calculator extends React.Component {
     }
 
     saveToHistory(num1, num2, operator, result) {
-        let mathExercise = `${num1}${operator}${num2}=`
+        let mathExercise = `"${num1} ${operator} ${num2} =`
         this.exerciseHistory.push(mathExercise)
-        this.resultHistory.push(result)
+        this.resultHistory.push(` ${result}"`)
     }
 
     handleChange = (event) => {
