@@ -61,7 +61,7 @@ class Calculator extends React.Component {
         let prevInput = this.state.input;
         const lastSymbol = prevInput.toString().slice(-1);
 
-        if(this.state.input === 0){
+        if(this.state.input === 0){ // check if customer want to enter negative value
             if(operator === '-'){
                 this.setState({
                     input: operator
