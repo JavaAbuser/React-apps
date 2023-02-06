@@ -23,6 +23,7 @@ function calculate(num1, num2, operator) {
 
 export function setValuesAndCalculate(result){
     if (result) {
+        console.log(result)
         let num1 = result[1]
         let num2 = result[3]
         let operator = result[2]
@@ -32,7 +33,7 @@ export function setValuesAndCalculate(result){
 }
 
 export function parseInput(input) {
-    const regExp = /(\d+)\s*(.)\s*(\d+)/;
+    const regExp = /(-?\d+)\s*(.)\s*(\d+)/;
     let result = input.toString().match(regExp)
     if (result[3] !== '') {
         return result
